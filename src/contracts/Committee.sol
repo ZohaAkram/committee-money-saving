@@ -16,9 +16,13 @@ contract Committee{
     function random() private view returns(uint){
         return uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp,persons)));
     }
-
-    function pickWinner() public view{
-        uint index= random() % persons.length;
-    persons[index];
+function getBalance() public view returns(uint){
+    return address(this).balance;
+}
+    function pickWinner() public {
+        address payable winner;
+        winner=payable(persons[random() % persons.length]);
+    winner.transfer(getBalance());
+    persons=new address[](0);
     }
 }
