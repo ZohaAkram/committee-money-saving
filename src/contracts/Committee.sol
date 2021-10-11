@@ -17,7 +17,8 @@ contract Committee{
         return uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp,persons)));
     }
 
-    function pickWinner() public{
+    function pickWinner() public view{
         uint index= random() % persons.length;
+    persons[index];
     }
 }
