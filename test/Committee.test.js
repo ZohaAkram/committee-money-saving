@@ -1,5 +1,6 @@
 const assert = require('assert');
 const ganache =require ('ganache-cli');
+const common = require('mocha/lib/interfaces/common');
 const Web3= require('web3');
 const web3= new Web3(ganache.provider());
 
@@ -62,7 +63,28 @@ catch(err){
     assert(err);
 }
 });
+it('only manager can call pickWinner',async() =>{
+    try{
+        await Committee.methods.pickWinner.send({
+            from: accounts[1]
+        });
+        assert(false);
+    }
+    catch(err){
 
+        assert(err);
+    }
+})
+if('sends money to the winner and resets persons array',async()=>{
+    await Committee.methods.send({
+        from:accounts[0],
+        value: web3.utils.toWei('2','ether')
+    });
 
+    const initialBal=await web3.eth.getBalance(accounts[0]);
+    await Committee.methods.pickWinner().send({from:accounts[0]});
+const finalBal=await web3.eth.getBalance(accounts[0]);
+
+});
 
 });
